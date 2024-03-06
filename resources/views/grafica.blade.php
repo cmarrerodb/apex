@@ -30,16 +30,14 @@
         var jsonData21 = @json($jsonData2);
         var jsonData = JSON.parse(jsonData11);
         var jsonData2 = JSON.parse(jsonData21);
-        console.log(jsonData2);
         var customColors = ['#FF5733', '#3498DB', '#27AE60', '#F39C12'];
         var options = {
             chart: {
-                type: 'bar',
-                stacked: false
+                type: 'bar'
             },
             plotOptions: {
                 bar: {
-                    horizontal: true
+                    horizontal: false
                 }
             },
             title: {
@@ -70,12 +68,12 @@
 
         var options2 = {
             chart: {
-                type: 'bar'
-                // stacked: false
+                type: 'bar',
+                stacked: false
             },
             plotOptions: {
                 bar: {
-                    horizontal: false
+                    horizontal: true
                 }
             },
             title: {
