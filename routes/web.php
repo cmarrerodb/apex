@@ -1,9 +1,9 @@
 <?php
-  
+
 use Illuminate\Support\Facades\Route;
-  
 use App\Http\Controllers\UsersController;
-   
+use App\Http\Controllers\GraficaController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +14,6 @@ use App\Http\Controllers\UsersController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-    
+Route::get('/', [GraficaController::class, 'index']);
 Route::get('index', [UsersController::class, 'create']);
 Route::post('store', [UsersController::class, 'store'])->name('store');
