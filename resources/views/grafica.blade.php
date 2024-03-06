@@ -12,7 +12,6 @@
         body {
         font-family: Roboto, sans-serif;
         }
-
         #chart {
         max-width: 650px;
         margin: 35px auto;
@@ -21,26 +20,47 @@
 </head>
 <body>
     <div class="container">      
-        <h1>Dashboard</h1>
+        <h1>Tablero</h1>
         <div id="chart"></div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script>
         var jsonData1 = @json($jsonData);
         var jsonData = JSON.parse(jsonData1);
+        var customColors = ['#FF5733', '#3498DB', '#27AE60', '#F39C12'];
         var options = {
             chart: {
-                type: 'bar'
+                type: 'bar',
+                stacked: false
             },
+            plotOptions: {
+                bar: {
+                    horizontal: true
+                }
+            },
+            title: {
+                text: 'Total Casos por Estatus',
+                align: 'center',
+                margin: 20,
+                offsetX: 0,
+                offsetY: 0,
+                floating: false,
+                style: {
+                    fontSize: '24px',
+                    fontWeight: 'bold',
+                    fontFamily: 'Helvetica, Arial, sans-serif',
+                    color: '#263238'
+                },
+            },            
             series: [{
                 name: 'total_casos',
                 data: jsonData.map(item => item.total_casos)
             }],
             xaxis: {
                 categories: jsonData.map(item => item.estatus)
-            }
+            },
+            colors: customColors
         };
-
         var chart = new ApexCharts(document.querySelector("#chart"), options);
         chart.render();
     </script>
