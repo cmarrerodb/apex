@@ -12,9 +12,8 @@ class GraficaController extends Controller
         $data1 = DB::select('SELECT estatus, total_casos FROM total_por_estatus');
         $jsonData1 = json_encode($data1);
     
-        $data2 = DB::select('SELECT municipio, estatus, count(*) AS total_casos FROM total_casos_municipios_estatus GROUP BY municipio, estatus ORDER BY municipio DESC');
+        $data2 = DB::select('SELECT municipio, estatus, count(*) AS total_casos FROM casos GROUP BY municipio, estatus ORDER BY municipio DESC');
         $jsonData2 = json_encode($data2);
-    
         return view('grafica', compact('jsonData1', 'jsonData2'));
     }
 }
