@@ -6,12 +6,13 @@ Tablero
 @section('pagetitle')
 Tablero
 @endsection
-    <div class="container">      
+    <div class="container">
         <h1>Tablero </h1>
         <div class="card text-center">
             <div class="card-body">
                 <!-- //////////////////// -->
                 <div class="row">
+                    <hr/>
                     <h1>CASOS POR GÉNERO</h1>
                     <hr/>
                 </div>                
@@ -19,6 +20,7 @@ Tablero
                     <div class="col-md-5">
                         <table id="genero" class="table table-dark table-hover table-striped" data-toggle="table" data-show-columns="true" data-show-export="true" data-export-data-type="all" data-export-types="['csv', 'json', 'excel']" data-show-fullscreen="true">
                             <thead>
+                                <tr><th colspan="2">Casos por Género</th></tr>
                                 <tr>
                                     <th data-field="genero">Género</th>
                                     <th data-field="cant" data-formatter="casosFormatter" data-align="right">Total</th>
@@ -32,7 +34,6 @@ Tablero
                         <div id="chart3"></div>
                     </div>
                 </div>
-                <!-- //////////////////// -->
                 <div class="row">
                     <h1>CASOS POR ESTATUS</h1>
                     <hr/>
@@ -54,6 +55,30 @@ Tablero
                         <div id="chart"></div>
                     </div>
                 </div>
+
+                <!-- //////////////////// -->
+                <div class="row">
+                    <h1>CASOS GRUPOS ETARIOS</h1>
+                    <hr/>
+                </div>                
+                <div class="row">
+                    <div class="col-md-5">
+                        <table id="etarios" class="table table-dark table-hover table-striped" data-toggle="table" data-show-columns="true" data-show-export="true" data-export-data-type="all" data-export-types="['csv', 'json', 'excel']" data-show-fullscreen="true">
+                        <tr><th colspan="2">Casos por Grupos Etarios</th></tr>
+                            <thead>
+                                <tr>
+                                    <th data-field="grupo_etario">Rango</th>
+                                    <th data-field="cantidad" data-formatter="casosFormatter" data-align="right">Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-xs-12 col-sm-12 col-md-7">
+                        <div id="chart4"></div>
+                    </div>
+                </div>
                 <div class="row">
                     <div class="row">
                         <hr/>
@@ -63,6 +88,7 @@ Tablero
                     <div class="col-xs-12 col-sm-12 col-md-5">
                         <table id="municipio-estatus" class="table table-dark table-hover" data-toggle="table" data-show-columns="true" data-pagination="true" data-show-export="true" data-export-data-type="all" data-export-types="['csv', 'json', 'excel']" data-show-fullscreen="true">
                         <thead>
+                        <tr><th colspan="3">Casos por Municipio y Estatus</th></tr>
                             <tr>
                                 <th data-field="municipio">Municipio</th>
                                 <th data-field="estatus">Estatus</th>
@@ -92,10 +118,11 @@ Tablero
             var jsonData11 = @json($jsonData1);
             var jsonData21 = @json($jsonData2);
             var jsonData31 = @json($jsonData3);
+            var jsonData41 = @json($jsonData4);
             var jsonData = JSON.parse(jsonData11);
             var jsonData2 = JSON.parse(jsonData21);
             var jsonData3 = JSON.parse(jsonData31);
-            console.log(JSON.stringify(jsonData3))
+            var jsonData4 = JSON.parse(jsonData41);
             $('#estatus').bootstrapTable({
                 data: jsonData
             });
@@ -105,6 +132,9 @@ Tablero
             });
             $('#genero').bootstrapTable({
                 data: jsonData3
+            });
+            $('#etarios').bootstrapTable({
+                data: jsonData4
             });
             ////////////////////////////
             var genero = jsonData3.map(item => item.genero);
@@ -207,7 +237,7 @@ Tablero
                 return matchingData ? matchingData.total_casos : 0;
             })
         }));
-
+        ////////////////////////////
         var options2 = {
             title: {
                 text: 'Total Casos por Municipio y Estatus',
@@ -267,12 +297,69 @@ Tablero
         };
         var chart2 = new ApexCharts(document.querySelector("#chart2"), options2);
         chart2.render();
-        function casosFormatter(value) {
-            if (value >= 1000) {
-                return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-            } else {
-                return value;
+        ////////////////////////////
+        ////////////////////////////
+        var custColors = ['#27AE60', '#FF5733', '#3498DB', '#F39C12'];
+        var options4 = {
+            chart: {
+                type: 'bar'
+            },
+            plotOptions: {
+                bar: {
+                horizontal: true,
+                dataLabels: {
+                    position: 'top',
+                },
             }
+        },
+        dataLabels: {
+            enabled: true,
+            offsetX: -6,
+            style: {
+                fontSize: '12px',
+                colors: ['#000']
+        }},
+        stroke: {
+            show: true,
+            width: 1,
+            colors: ['#fff']
+        },
+        tooltip: {
+            shared: true,
+            intersect: false
+        },            
+        title: {
+            text: 'Casos por Grupos Etarios',
+            align: 'center',
+            margin: 20,
+            offsetX: 0,
+            offsetY: 0,
+            floating: false,
+            style: {
+                fontSize: '24px',
+                fontWeight: 'bold',
+                fontFamily: 'Helvetica, Arial, sans-serif',
+                color: '#263238'
+            },
+        },            
+        series: [{
+            name: 'Rango',
+            data: jsonData4.map(item => item.cantidad)
+        }],
+        xaxis: {
+            categories: jsonData4.map(item => item.grupo_etario)
+        },
+        colors: custColors
+    };
+    var chart4 = new ApexCharts(document.querySelector("#chart4"), options4);
+    chart4.render();
+    ////////////////////////////
+    function casosFormatter(value) {
+        if (value >= 1000) {
+            return value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+        } else {
+            return value;
         }
+    }
     </script>
 @endsection

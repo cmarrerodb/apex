@@ -17,7 +17,10 @@ class GraficaController extends Controller
 
         $data3 = DB::select('SELECT genero, cant FROM vtotal_genero');
         $jsonData3 = json_encode($data3);
-info($jsonData3);
-        return view('grafica', compact('jsonData1', 'jsonData2', 'jsonData3'));
+
+        $data4 = DB::select('SELECT grupo_etario, cantidad FROM vgrupos_etarios');
+        $jsonData4 = json_encode($data4);
+
+        return view('grafica', compact('jsonData1', 'jsonData2', 'jsonData3', 'jsonData4'));
     }
 }
