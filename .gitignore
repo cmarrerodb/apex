@@ -15,9 +15,25 @@ public/hot
 public_html/storage
 public_html/hot
 
+storage/
 storage/*.key
 .env
 Homestead.yaml
 Homestead.json
 /.vagrant
 .phpunit.result.cache
+rutas.txt
+*.rar
+*.zip
+public/assets/js/locale-all.js_4.0.0-alpha.zip
+public/assets/js/fullcalendar-5.10.1.zip
+public/assets/js/app/reservar/listadojs.codium
+
+public/assets/js/Bootstrap-5-navbar-with-multilevel-dropdown-menu-main.zip
+resources/views/layouts/vendor-scripts.blade.php.back.php
+resources/views/layouts/head-css.blade.php.back.php
+profiler/
+.vscode/launch.json
+public/assets/js/app/calendario/index_orig.js
+resources/views/calendario/index.blade_orig.php
+public/assets/js/app/calendario/index_20230704.js

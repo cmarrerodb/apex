@@ -16,6 +16,21 @@ define('LARAVEL_START', microtime(true));
 |
 */
 
+// Prueba para eliminar el index.php del URI
+
+/*
+ * --------------------------------------------------------------------
+ * REMOVE index.php from URI
+ * --------------------------------------------------------------------
+ */
+if (strpos($_SERVER['REQUEST_URI'],'index.php') !== FALSE )
+{
+    $new_uri = preg_replace('#index\.php\/?#', '', $_SERVER['REQUEST_URI']);
+    header('Location: '.$new_uri, TRUE, 301);
+    die();
+}
+
+
 if (file_exists($maintenance = __DIR__.'/../storage/framework/maintenance.php')) {
     require $maintenance;
 }
