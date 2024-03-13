@@ -25,6 +25,7 @@ Route::get('/giftcard/verifica-giftcards-email', 'GiftcardController@verificaGif
 Route::post('login-button', [App\Http\Controllers\Auth\LoginButtonController::class, 'login'])->name('login.button');
 //Language Translation
 Route::get('/', [App\Http\Controllers\GraficaController::class, 'index'])->name('index');
+Route::get('/tui', [App\Http\Controllers\GraficaController::class, 'tui'])->name('tui');
 Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
 //Update User Details
 Route::post('/update-profile/{id}', [App\Http\Controllers\HomeController::class, 'updateProfile'])->name('updateProfile');

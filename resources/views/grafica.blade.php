@@ -108,7 +108,6 @@ Tablero
     </div>
     @endsection
     @section('script')
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script>
             $(document).ready(function(){
                 $('#estatus').bootstrapTable();
